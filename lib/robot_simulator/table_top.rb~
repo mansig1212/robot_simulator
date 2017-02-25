@@ -1,0 +1,21 @@
+module RobotSimulator
+  class TableTop
+    def initialize(x_width, y_width)
+      @x_width = x_width
+      @y_width = y_width
+    end
+
+
+    def is_valid_position?(position)
+      return true if  (position.x_axis.between?(0, @x_width-1) and position.y_axis.between?(0, @y_width-1))
+    end
+
+    def within_x_edge?(x)
+      return true if x.between?(0, @x_width-1)
+    end
+
+    def within_y_edge?(y)
+      return true if y.between?(0, @y_width-1)
+    end
+  end
+end

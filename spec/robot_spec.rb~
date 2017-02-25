@@ -1,0 +1,64 @@
+require 'spec_helper'
+describe Robot do
+  let(:robot){Robot.new}
+  let(:position){CellPosition.new(0,0,'N')}
+  let(:table){TableTop.new(5,5)}
+
+  describe 'is_placed?' do
+    it 'should return false when robot is not placed' do
+      expect(robot.is_placed?).to be false
+    end
+
+    it 'should return true when robot is placed' do
+      robot.position = position
+      expect(robot.is_placed?).to be true
+    end
+  end
+
+  describe 'move' do
+    it 'should call move command'  do
+      robot.position = position
+      move = Move.new(robot, table)
+      Move.should_receive(:new).once.and_return(move)
+      move.should_receive(:execute).once
+      robot.move(table)
+    end
+  end
+
+  describe 'left' do
+    it 'should call left command' do
+      left = Left.new(robot)
+      Left.should_receive(:new).once.and_return(left)
+      left.should_receive(:execute).once
+      robot.left
+    end
+  end
+  
+  describe 'right' do
+    it 'should call right command' do
+      right = Right.new(robot)
+      Right.should_receive(:new).once.and_return(right)
+      right.should_receive(:execute).once
+      robot.right
+    end
+  end
+
+  describe  'report' do
+    it 'should call report command' do
+      report = Report.new(robot)
+      Report.should_receive(:new).once.and_return(report)
+      report.should_receive(:execute).once
+      robot.report
+    end
+  end
+
+  describe 'place' do
+    it 'should call place command' do
+      place = Place.new(robot, table, position)
+      Place.should_receive(:new).once.and_return(place)
+      place.should_receive(:execute).once
+      robot.place(table, position)      
+    end
+  end
+  
+end
